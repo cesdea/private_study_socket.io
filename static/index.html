@@ -36,7 +36,7 @@
     });
 
     // 서버로부터의 메시지가 수신되면
-    socket.on("chat", function(data) {
+    socket.on("msg", function(data) {
       $("#chatLogs").append("<div>" + data.msg + " : from <strong>" + data.from.name + "</strong></div>");
     });
 
@@ -46,7 +46,7 @@
       var $msgForm = $("#msgForm");
 
       // 서버로 메시지를 전송한다.
-      socket.emit("chat", { msg: $msgForm.val() });
+      socket.emit("msg", { msg: $msgForm.val() });
       $msgForm.val("");
     });
 

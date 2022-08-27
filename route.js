@@ -7,14 +7,38 @@ const socket=require('socket.io')
 // localhost:3000으로 서버에 접속하면 클라이언트로 index.html을 전송한다
 // connection event handler
 // connection이 수립되면 event handler function의 인자로 socket인 들어온다
+class game{
+  
+}
 class Server{
   constructor() {
     this.app=express();
     this.app.use('/static', express.static('index.html'));
     this.setMiddleWare();
     this.setRouter();
-    this.server = http.createServer(this.app);
+    this.setIo(this.app,)
+  }
+  setMiddleWare(){
+    this.app.use(cors())
+  }
+  setRouter() {
+    this.app.get('/', function(req, res) {
+      res.sendFile(__dirname + '/static/index.html');
+    });
+    this.app.get('/ps',(req,res,next)=>{
+      res.send("check")
+    })
+  }
+  
+  setIo=(app)=>{
+    this.server = http.createServer(app);
     this.io = socket.listen(this.server);
+    let add=0;
+    const sum=(add)=>{
+      add++;
+      console.log(add);
+    }
+    
     // this.setErrorHandler();
     this.io.on('connection', (socket)=> {
     
@@ -31,7 +55,7 @@ class Server{
       });
     
       // 클라이언트로부터의 메시지가 수신되면
-      socket.on('chat', (data)=> {
+      socket.on('msg', (data)=> {
         console.log('Message from %s: %s', socket.name, data.msg);
     
         var msg = {
@@ -43,7 +67,7 @@ class Server{
         };
     
         // 메시지를 전송한 클라이언트를 제외한 모든 클라이언트에게 메시지를 전송한다
-        this.io.emit('chat', msg);
+        this.io.emit('msg', msg);
     
         // 메시지를 전송한 클라이언트에게만 메시지를 전송한다
         // socket.emit('s2c chat', msg);
@@ -58,21 +82,12 @@ class Server{
       socket.on('forceDisconnect', ()=> {
         socket.disconnect();
       })
-    
+      
       socket.on('disconnect', ()=> {
         console.log('user disconnected: ' + socket.name);
       });
     });
   }
-  setMiddleWare(){
-    this.app.use(cors())
-  }
-  setRouter() {
-    this.app.get('/', function(req, res) {
-      res.sendFile(__dirname + '/static/index.html');
-    });
-  }
-  
  
 }
 module.exports=new Server().server
