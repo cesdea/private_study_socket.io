@@ -1,5 +1,6 @@
 var app = require('express')();
-
+const cors=require("cors")
+app.use(cors())
 var server = require('http').createServer(app);
 // http server를 socket.io server로 upgrade한다
 var io = require('socket.io')(server);
