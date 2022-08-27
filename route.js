@@ -10,7 +10,7 @@ const socket=require('socket.io')
 class Server{
   constructor() {
     this.app=express();
-    this.app.use('/', express.static('/'))
+    this.app.use('/static', express.static('index.html'));
     this.setMiddleWare();
     this.setRouter();
     this.server = http.createServer(this.app);
@@ -69,7 +69,7 @@ class Server{
   }
   setRouter() {
     this.app.get('/', function(req, res) {
-      res.sendFile(__dirname + '/index.html');
+      res.sendFile(__dirname + '/static/index.html');
     });
   }
   
