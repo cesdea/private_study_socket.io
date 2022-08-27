@@ -18,11 +18,11 @@
     <div id="chatLogs"></div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="http://3.34.52.43/socket.io/socket.io.js"></script>
   <script>
   $(function(){
     // socket.io 서버에 접속한다
-    var socket = io("http://localhost:3000/");
+    var socket = io("http://3.34.52.43/");
 
     // 서버로 자신의 정보를 전송한다.
     socket.emit("login", {
