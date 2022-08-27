@@ -10,7 +10,7 @@ const socket=require('socket.io')
 class Server{
   constructor() {
     this.server = http.createServer(app);
-    this.io = socket(this.server);
+    this.io = socket.listen(this.server);
     // this.setErrorHandler();
     this.io.on('connection', (socket)=> {
     
