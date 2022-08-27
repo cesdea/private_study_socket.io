@@ -1,4 +1,4 @@
-var app = require('express')();
+const express=require('express');
 const cors=require("cors")
 const http=require('http')
 const socket=require('socket.io')
@@ -9,7 +9,8 @@ const socket=require('socket.io')
 // connection이 수립되면 event handler function의 인자로 socket인 들어온다
 class Server{
   constructor() {
-    this.server = http.createServer(app);
+    this.app=express();
+    this.server = http.createServer(this.app);
     this.io = socket.listen(this.server);
     this.setMiddleWare()
     // this.setErrorHandler();
@@ -62,7 +63,7 @@ class Server{
     });
   }
   setMiddleWare(){
-    this.server.use(cors())
+    this.app.use(cors())
   }
   setRouter() {
 
