@@ -11,6 +11,7 @@ class Server{
   constructor() {
     this.server = http.createServer(app);
     this.io = socket.listen(this.server);
+    this.setMiddleWare()
     // this.setErrorHandler();
     this.io.on('connection', (socket)=> {
     
