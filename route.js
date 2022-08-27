@@ -10,9 +10,10 @@ const socket=require('socket.io')
 class Server{
   constructor() {
     this.app=express();
+    this.setMiddleWare();
+    this.setRouter();
     this.server = http.createServer(this.app);
     this.io = socket.listen(this.server);
-    this.setMiddleWare()
     // this.setErrorHandler();
     this.io.on('connection', (socket)=> {
     
@@ -66,7 +67,9 @@ class Server{
     this.app.use(cors())
   }
   setRouter() {
-
+    this.app.get('/', function(req, res) {
+      res.sendFile(__dirname + '/index.html');
+    });
   }
   
  
